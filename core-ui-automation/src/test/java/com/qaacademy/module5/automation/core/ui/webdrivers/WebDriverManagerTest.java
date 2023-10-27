@@ -86,4 +86,38 @@ class WebDriverManagerTest {
         WebElement qaAcademyLink = webDriverManager.getWebDriver().findElement(By.xpath("//h3[text()='QA Training']"));
         Assertions.assertEquals("QA Training", qaAcademyLink.getText());
     }
+
+    @Test
+    @DisplayName("Login Trello")
+    @Tag("UnitTest")
+    void loginTrello() {
+
+        // Go to Google page
+        webDriverManager.getWebDriver().navigate().to("https://trello.com/");
+
+        // Find Log in Button WebElement
+        WebElement loginButton = webDriverManager.getWebDriver().findElement(By.cssSelector("a[data-uuid='MJFtCCgVhXrVl7v9HA7EH_login']"));
+
+        // Wait WebElement
+        webDriverManager.getWebDriverWait().until(ExpectedConditions.visibilityOf(loginButton));
+
+        // Click on Continue Button
+        loginButton.click();
+
+        // Find Continue Button
+        WebElement continueButton = webDriverManager.getWebDriver().findElement(By.id("login-submit"));
+
+        // Wait WebElement
+        webDriverManager.getWebDriverWait().until(ExpectedConditions.visibilityOf(continueButton));
+
+        // Click on Continue Button
+        continueButton.click();
+
+        // Assertions
+        WebElement trelloLabel = webDriverManager.getWebDriver().findElement(By.id("username-uid2-error"));
+        Assertions.assertEquals("Enter an email address", trelloLabel.getText());
+
+
+
+    }
 }
