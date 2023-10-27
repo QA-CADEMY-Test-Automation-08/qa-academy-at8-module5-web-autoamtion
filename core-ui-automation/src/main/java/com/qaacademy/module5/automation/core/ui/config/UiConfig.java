@@ -6,7 +6,6 @@ import com.qaacademy.module5.automation.core.utils.properties.PropertiesFileRead
 import java.util.Objects;
 
 import static com.qaacademy.module5.automation.core.ui.config.ReservedWords.*;
-import static com.qaacademy.module5.automation.core.ui.config.ReservedWords.HEIGHT;
 
 public final class UiConfig {
     private static final String UI_PROP_FILE = "./gradle.properties";
@@ -121,5 +120,9 @@ public final class UiConfig {
      */
     public int getHeightOfBrowser() {
         return Integer.parseInt(propertiesFileReader.getPropertyValue(HEIGHT.val()));
+    }
+
+    public boolean isHeadlessMode() {
+        return Boolean.parseBoolean(propertiesFileReader.getPropertyValue(HEADLESS_MODE.val()));
     }
 }
