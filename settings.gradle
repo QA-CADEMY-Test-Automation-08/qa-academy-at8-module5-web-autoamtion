@@ -1,4 +1,5 @@
 rootProject.name = 'qa-academy-at8-module5-web-autoamtion'
 include 'core-utils-automation'
 include 'core-ui-automation'
+include 'trello-core-ui-automation'
 
