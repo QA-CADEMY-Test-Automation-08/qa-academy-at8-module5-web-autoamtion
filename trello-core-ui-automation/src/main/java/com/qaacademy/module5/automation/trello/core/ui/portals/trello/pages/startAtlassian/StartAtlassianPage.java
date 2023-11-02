@@ -9,7 +9,14 @@ public class StartAtlassianPage extends BasePage {
     @FindBy(css = "div[class='sc-kAzzGY bxrpKa']")
     private WebElement switchToLabel;
 
+    @FindBy(css = "div[data-testid='start-product__TRELLO_TRELLO']")
+    private WebElement startProductTrelloBtn;
+
     public boolean isSwitchToLabelDisplayed() {
         return action.isElementDisplayed(switchToLabel);
+    }
+
+    public void clickOnStartProductTrelloButton() {
+        action.click(startProductTrelloBtn);
     }
 }
