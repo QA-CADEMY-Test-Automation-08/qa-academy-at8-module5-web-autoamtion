@@ -10,8 +10,8 @@
           "Users": [
             {
               "Type": "TRELLO-USER-PASSWORD",
-              "Username": "miguel.aldobv@gmail.com",
-              "Password": "$Test123$5"
+              "Username": "",
+              "Password": ""
             }
           ]
         }
