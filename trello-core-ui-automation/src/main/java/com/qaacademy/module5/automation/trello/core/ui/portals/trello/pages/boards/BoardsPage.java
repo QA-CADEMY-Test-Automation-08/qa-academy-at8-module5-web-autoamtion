@@ -9,7 +9,24 @@ public class BoardsPage extends BasePage {
     @FindBy(css = "h3[class='boards-page-section-header-name']")
     WebElement workSpaceLabel;
 
+    @FindBy(css = "h1[data-testid='board-name-display']")
+    WebElement boardTitleLabel;
+
+    @FindBy(css = "button[aria-label='Show menu']")
+    WebElement showMenuBoardButton;
+
     public boolean isWorkSpaceLabelDisplayed() {
         return action.isElementDisplayed(workSpaceLabel);
+    }
+
+    public boolean isBoardTitleDisplayed(String boardTitle) {
+        if (action.isElementDisplayed(boardTitleLabel)) {
+            return boardTitleLabel.getText().equalsIgnoreCase(boardTitle);
+        }
+        return false;
+    }
+
+    public void clickOnShowMenuBoardButton() {
+        action.click(showMenuBoardButton);
     }
 }
