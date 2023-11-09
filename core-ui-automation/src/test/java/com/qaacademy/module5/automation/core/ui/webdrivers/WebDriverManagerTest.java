@@ -12,6 +12,8 @@ class WebDriverManagerTest {
     public static final String GOOGLE_URL = "https://www.google.com/";
     public static final String GOOGLE = "Google";
 
+    public static final String TRELLO_URL = "https://www.trello.com/";
+
     private WebDriverManager webDriverManager;
 
     @BeforeEach
@@ -85,5 +87,38 @@ class WebDriverManagerTest {
         // Assertions
         WebElement qaAcademyLink = webDriverManager.getWebDriver().findElement(By.xpath("//h3[text()='QA Training']"));
         Assertions.assertEquals("QA Training", qaAcademyLink.getText());
+    }
+
+    @Test
+    @DisplayName("Login Trello")
+    @Tag("UnitTest")
+    void loginTrello() {
+
+        // Navigate to Trello home page
+        webDriverManager.getWebDriver().navigate().to(TRELLO_URL);
+
+        // Find Log in button
+
+        WebElement loginButton = webDriverManager.getWebDriver().findElement(By.cssSelector("a[data-uuid='MJFtCCgVhXrVl7v9HA7EH_login']"));
+
+        // Wait WebElement
+        webDriverManager.getWebDriverWait().until(ExpectedConditions.elementToBeClickable(loginButton));
+
+        // Click on Log in Button
+        loginButton.click();
+
+
+        // Find Continue button
+        WebElement ContinueButton = webDriverManager.getWebDriver().findElement(By.id("login-submit"));
+        // Wait WebElement
+        webDriverManager.getWebDriverWait().until(ExpectedConditions.elementToBeClickable(ContinueButton));
+
+        // Click on Log in Button
+        ContinueButton.click();
+
+        // Assertions
+        WebElement errorLogin = webDriverManager.getWebDriver().findElement(By.id("username-uid2-error"));
+        Assertions.assertEquals("Enter an email address", errorLogin.getText());
+
     }
 }
