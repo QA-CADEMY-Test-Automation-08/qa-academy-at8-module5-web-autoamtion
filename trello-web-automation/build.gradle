@@ -14,6 +14,9 @@ dependencies {
     implementation project(":core-utils-automation")
     implementation project(":core-ui-automation")
     implementation project(":trello-core-ui-automation")
+    implementation 'org.apache.logging.log4j:log4j-core:2.21.0'
+    implementation 'org.apache.logging.log4j:log4j-api:2.21.0'
+    implementation 'org.seleniumhq.selenium:selenium-java:4.14.1'
     implementation 'io.cucumber:cucumber-java:7.14.0'
     implementation 'io.cucumber:cucumber-gherkin:7.14.0'
     implementation 'io.cucumber:cucumber-testng:7.14.0'
@@ -26,16 +29,41 @@ test {
 }
 
 tasks.register("executeFeature", Test) {
-    systemProperties(System.getProperties())
+    doFirst {
+        systemProperties(System.getProperties())
+    }
     outputs.upToDateWhen { false }
     useTestNG()
     scanForTestClasses = false
     options {
         useDefaultListeners = false
-        jvmArgs = ["-Dcucumber.features=${rootProject.rootDir}/trello-web-autoamtion/src/test/resources/features/"]
-        jvmArgs = ["-Dcucumber.plugin=pretty," + "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"]
+        jvmArgs = ["-Dcucumber.features=${rootProject.rootDir}/trello-web-automation/src/test/resources/features/"]
+        jvmArgs = ["-Dcucumber.plugin=pretty," + "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm," + "rerun:build/rerun.txt"]
         jvmArgs = ["-Dcucumber.filter.tags=" + System.getProperty("cucumberTags")]
-        jvmArgs = ["-DenvironmentName=" + environmentName]
         testLogging.showStandardStreams = true
     }
+}
+
+tasks.register("reExecuteFeature", Test) {
+    doFirst {
+        systemProperties(System.getProperties())
+    }
+    if (isReExecutable()) {
+        outputs.upToDateWhen { false }
+        useTestNG()
+        scanForTestClasses = false
+        options {
+            useDefaultListeners = false
+            jvmArgs = ["-Dcucumber.features=${rootProject.rootDir}/trello-web-automation/src/test/resources/features/"]
+            jvmArgs = ["-Dcucumber.plugin=pretty," + "io.qameta.allure.cucumber7jvm.AllureCucumber7Jvm"]
+            jvmArgs = ["-Dcucumber.features=@build/rerun.txt"]
+            testLogging.showStandardStreams = true
+        }
+    }
+
+}
+
+boolean isReExecutable() {
+    File failedScenariosFile = new File("${rootProject.rootDir}/build/rerun.txt")
+    return failedScenariosFile.exists() && !failedScenariosFile.getText().isEmpty()
 }

@@ -6,17 +6,13 @@ import org.openqa.selenium.chrome.ChromeOptions;
 
 import java.util.Objects;
 
-/**
- * Initializes an instance of a Chrome web driver.
- */
-public class Chrome implements Browser<WebDriverManager> {
-
+public class ChromeDocker implements Browser<WebDriverManager>{
     protected static final String WEBDRIVER_VERSION = UiConfig.getInstance().getChromeDriverVersion();
 
     /**
      * Initializes an instance of {@link Chrome}.
      */
-    public Chrome() {
+    public ChromeDocker() {
         super();
     }
 
@@ -27,11 +23,13 @@ public class Chrome implements Browser<WebDriverManager> {
     public WebDriverManager getDriver() {
         WebDriverManager webDriverManager;
         if (Objects.nonNull(WEBDRIVER_VERSION) && !WEBDRIVER_VERSION.isEmpty()) {
-            webDriverManager = WebDriverManager.chromedriver()
+            webDriverManager = WebDriverManager
+                    .chromedriver()
                     .driverVersion(WEBDRIVER_VERSION)
-                    .capabilities(getOptions());
+                    .capabilities(getOptions())
+                    .browserInDocker();
         } else {
-            webDriverManager = WebDriverManager.chromedriver().capabilities(getOptions());
+            webDriverManager = WebDriverManager.chromedriver().capabilities(getOptions()).browserInDocker();
         }
 
         webDriverManager.create();

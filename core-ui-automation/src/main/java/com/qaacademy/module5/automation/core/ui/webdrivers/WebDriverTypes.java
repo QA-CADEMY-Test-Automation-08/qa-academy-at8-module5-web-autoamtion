@@ -4,7 +4,8 @@ package com.qaacademy.module5.automation.core.ui.webdrivers;
  * Driver types enum.
  */
 public enum WebDriverTypes {
-    CHROME("CHROME");
+    CHROME("CHROME"),
+    CHROME_DOCKER("CHROME_DOCKER");
 
     private final String word;
 

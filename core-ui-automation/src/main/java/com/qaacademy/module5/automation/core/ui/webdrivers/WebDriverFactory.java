@@ -2,6 +2,7 @@ package com.qaacademy.module5.automation.core.ui.webdrivers;
 
 import com.qaacademy.module5.automation.core.ui.browsers.Browser;
 import com.qaacademy.module5.automation.core.ui.browsers.Chrome;
+import com.qaacademy.module5.automation.core.ui.browsers.ChromeDocker;
 import io.github.bonigarcia.wdm.WebDriverManager;
 
 import java.util.EnumMap;
@@ -35,6 +36,7 @@ public final class WebDriverFactory {
     private static EnumMap<WebDriverTypes, StrategyGetter<Browser<WebDriverManager>>> getStrategyBrowser() {
         EnumMap<WebDriverTypes, StrategyGetter<Browser<WebDriverManager>>> driverMap = new EnumMap<>(WebDriverTypes.class);
         driverMap.put(WebDriverTypes.CHROME, Chrome::new);
+        driverMap.put(WebDriverTypes.CHROME_DOCKER, ChromeDocker::new);
         return driverMap;
     }
 }

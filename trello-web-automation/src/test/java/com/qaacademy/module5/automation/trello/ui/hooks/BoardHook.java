@@ -7,7 +7,7 @@ import io.cucumber.java.After;
 
 public final class BoardHook {
 
-    @After("@deleteBoard")
+    @After(value = "@deleteBoard", order = 1003)
     public void deleteBoard() {
         BoardsPage boardsPage = new BoardsPage();
         boardsPage.clickOnShowMenuBoardButton();
